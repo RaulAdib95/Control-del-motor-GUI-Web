@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cambio de Contenido</title>
+  <style>
+    /* Estilos para centrar la imagen y los botones */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .buttons {
+      margin-top: 40px; 
+    }
+
+         .botonImagen {
+      padding: 0; 
+      border: none; 
+      background-color: transparent; 
+      cursor: pointer; 
+      display: inline-block; 
+      overflow: hidden; 
+    }
+    .botonImagen img {
+      width: 100%; 
+      height: auto; 
+    }
+    
+
+    
+  </style>
+  <script>
+    window.onload = function() {
+      var imagenPrincipal = document.getElementById('imagenPrincipal');
+      var h1Titulo = document.querySelector('h1'); // Seleccionar el elemento <h1>
+
+      // Mapa de imágenes y sus respectivos nombres
+      var imagenes = {
+        'imagen_motor.gif': '<%= asset_path('imagen_motor.gif') %>',
+        'derecha.gif': '<%= asset_path('derecha.gif') %>',
+        'izquierda.gif': '<%= asset_path('izquierda.gif') %>'
+        // Agrega más imágenes según sea necesario
+      };
+
+      // Función para cambiar la imagen y el contenido del h1 al hacer clic en un botón
+      function cambiarContenido(nombreImagen, nuevoH1) {
+        imagenPrincipal.src = imagenes[nombreImagen];
+        h1Titulo.innerText = nuevoH1; // Cambiar el contenido del h1
+      }
+
+      // Asignar la función cambiarContenido a los botones
+      var botones = document.querySelectorAll('.botonImagen');
+      botones.forEach(function(boton) {
+        boton.addEventListener('click', function() {
+          cambiarContenido(this.dataset.imagen, this.dataset.h1);
+        });
+      });
+    };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Motor detenido...</h1>
+
+    <!-- Mostrar la imagen GIF -->
+    <img id="imagenPrincipal" src="<%= asset_path('imagen_motor.gif') %>" alt="Imagen Principal">
+    
+    <div class="buttons">
+      <!-- btn1-->
+      <button class="botonImagen btn-izquierda" data-imagen="izquierda.gif" data-h1="Motor girando a la derecha...">
+         <img src="<%= asset_path('fi.png') %>" alt="Botón con Imagen">
+      </button>
+      
+      <!-- btn2-->
+      <button class="botonImagen" data-imagen="imagen_motor.gif" data-h1="Motor detenido...">
+         <img src="<%= asset_path('pausa.png') %>" alt="Botón con Imagen">
+      </button>
+
+      <!-- btn3-->
+      <button class="botonImagen" data-imagen="derecha.gif" data-h1="Motor girando a la izquierda...">
+             <img src="<%= asset_path('fd.png') %>" alt="Botón con Imagen">
+      </button>
+    </div>
+  </div>
+</body>
+</html>
